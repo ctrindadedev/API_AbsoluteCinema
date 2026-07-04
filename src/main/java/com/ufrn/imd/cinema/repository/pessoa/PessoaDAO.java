@@ -28,7 +28,7 @@ public class PessoaDAO {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, pessoa.getCpf());
+            stmt.setLong(1, pessoa.getCpf());
             stmt.setString(2, pessoa.getSexo());
             stmt.setDate(3, Date.valueOf(pessoa.getNascimento()));
             stmt.setString(4, pessoa.getNome());
@@ -41,13 +41,13 @@ public class PessoaDAO {
         }
     }
 
-    public Optional<Pessoa> buscarPorCpf(int cpf) {
+    public Optional<Pessoa> buscarPorCpf(long cpf) {
         String sql = "SELECT Cpf, sexo, nascimento, nome, email FROM Pessoa WHERE Cpf = ?";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, cpf);
+            stmt.setLong(1, cpf);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -89,7 +89,7 @@ public class PessoaDAO {
             stmt.setDate(2, Date.valueOf(pessoa.getNascimento()));
             stmt.setString(3, pessoa.getNome());
             stmt.setString(4, pessoa.getEmail());
-            stmt.setInt(5, pessoa.getCpf());
+            stmt.setLong(5, pessoa.getCpf());
 
             return stmt.executeUpdate() > 0;
 
@@ -98,13 +98,13 @@ public class PessoaDAO {
         }
     }
 
-    public boolean deletar(int cpf) {
+    public boolean deletar(long cpf) {
         String sql = "DELETE FROM Pessoa WHERE Cpf = ?";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, cpf);
+            stmt.setLong(1, cpf);
 
             return stmt.executeUpdate() > 0;
 
@@ -115,7 +115,7 @@ public class PessoaDAO {
 
     private Pessoa mapRow(ResultSet rs) throws SQLException {
         Pessoa pessoa = new Pessoa();
-        pessoa.setCpf(rs.getInt("Cpf"));
+        pessoa.setCpf(rs.getLong("Cpf"));
         pessoa.setSexo(rs.getString("sexo"));
         pessoa.setNascimento(rs.getDate("nascimento").toLocalDate());
         pessoa.setNome(rs.getString("nome"));

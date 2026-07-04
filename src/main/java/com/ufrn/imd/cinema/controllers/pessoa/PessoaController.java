@@ -29,7 +29,7 @@ public class PessoaController {
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<PessoaDtoRes> buscarPorCpf(@PathVariable int cpf) {
+    public ResponseEntity<PessoaDtoRes> buscarPorCpf(@PathVariable long cpf) {
         Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
         return ResponseEntity.ok(PessoaDtoRes.from(pessoa));
     }
@@ -43,13 +43,13 @@ public class PessoaController {
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity<PessoaDtoRes> atualizarPessoa(@PathVariable int cpf, @Valid @RequestBody PessoaDtoReq dto) {
+    public ResponseEntity<PessoaDtoRes> atualizarPessoa(@PathVariable long cpf, @Valid @RequestBody PessoaDtoReq dto) {
         Pessoa pessoaAtualizada = pessoaService.atualizarPessoa(cpf, dto.toModel());
         return ResponseEntity.ok(PessoaDtoRes.from(pessoaAtualizada));
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<Void> deletarPessoa(@PathVariable int cpf) {
+    public ResponseEntity<Void> deletarPessoa(@PathVariable long cpf) {
         pessoaService.deletarPessoa(cpf);
         return ResponseEntity.noContent().build();
     }

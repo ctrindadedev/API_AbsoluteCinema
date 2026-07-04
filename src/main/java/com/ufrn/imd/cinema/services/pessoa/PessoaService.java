@@ -28,7 +28,7 @@ public class PessoaService {
         pessoaDAO.salvar(pessoa);
     }
 
-    public Pessoa buscarPorCpf(int cpf) {
+    public Pessoa buscarPorCpf(long cpf) {
         return pessoaDAO.buscarPorCpf(cpf)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Pessoa com CPF " + cpf + " não encontrada."));
     }
@@ -37,14 +37,14 @@ public class PessoaService {
         return pessoaDAO.buscarTodas();
     }
 
-    public Pessoa atualizarPessoa(int cpf, Pessoa dadosAtualizados) {
+    public Pessoa atualizarPessoa(long cpf, Pessoa dadosAtualizados) {
         buscarPorCpf(cpf);
         dadosAtualizados.setCpf(cpf);
         pessoaDAO.atualizar(dadosAtualizados);
         return dadosAtualizados;
     }
 
-    public void deletarPessoa(int cpf) {
+    public void deletarPessoa(long cpf) {
         buscarPorCpf(cpf);
         pessoaDAO.deletar(cpf);
     }
