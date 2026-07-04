@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class PessoaDtoReq {
 
     @Positive(message = "CPF deve ser um número positivo")
-    private int cpf;
+    private long cpf;
 
     @NotBlank(message = "Sexo é obrigatório")
     @Pattern(regexp = "[MF]", message = "Sexo deve ser 'M' ou 'F'")

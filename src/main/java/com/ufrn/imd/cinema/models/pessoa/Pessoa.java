@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pessoa {
-    private int cpf;
+    private long cpf;
     private String sexo;
     private LocalDate nascimento;
     private String nome;
