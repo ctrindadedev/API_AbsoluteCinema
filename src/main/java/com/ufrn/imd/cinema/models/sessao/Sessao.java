@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,9 +13,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class Sessao {
     private int idSessao;
-    private LocalDate data;
-    private LocalTime horaInicial;
-    private LocalTime horaFinal;
+    private LocalDateTime dataHoraInicial;
+    private LocalDateTime dataHoraFinal;
     private String tipo;
     private float valorSessao;
     private int salaIdSala;

@@ -5,8 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,14 +14,11 @@ public class SessaoDtoReq {
     @Positive(message = "Id da sessão deve ser um número positivo")
     private int idSessao;
 
-    @NotNull(message = "Data é obrigatória")
-    private LocalDate data;
+    @NotNull(message = "Data/hora inicial é obrigatória")
+    private LocalDateTime dataHoraInicial;
 
-    @NotNull(message = "Hora inicial é obrigatória")
-    private LocalTime horaInicial;
-
-    @NotNull(message = "Hora final é obrigatória")
-    private LocalTime horaFinal;
+    @NotNull(message = "Data/hora final é obrigatória")
+    private LocalDateTime dataHoraFinal;
 
     @NotBlank(message = "Tipo é obrigatório")
     @Size(max = 3, message = "Tipo deve ter no máximo 3 caracteres")
@@ -41,6 +37,6 @@ public class SessaoDtoReq {
     private int filmeIdFilme;
 
     public Sessao toModel() {
-        return new Sessao(idSessao, data, horaInicial, horaFinal, tipo, valorSessao, salaIdSala, administrativoCpf, filmeIdFilme);
+        return new Sessao(idSessao, dataHoraInicial, dataHoraFinal, tipo, valorSessao, salaIdSala, administrativoCpf, filmeIdFilme);
     }
 }

@@ -4,17 +4,15 @@ import com.ufrn.imd.cinema.models.sessao.Sessao;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class SessaoDtoRes {
 
     private int idSessao;
-    private LocalDate data;
-    private LocalTime horaInicial;
-    private LocalTime horaFinal;
+    private LocalDateTime dataHoraInicial;
+    private LocalDateTime dataHoraFinal;
     private String tipo;
     private float valorSessao;
     private int salaIdSala;
@@ -24,9 +22,8 @@ public class SessaoDtoRes {
     public static SessaoDtoRes from(Sessao sessao) {
         SessaoDtoRes dto = new SessaoDtoRes();
         dto.setIdSessao(sessao.getIdSessao());
-        dto.setData(sessao.getData());
-        dto.setHoraInicial(sessao.getHoraInicial());
-        dto.setHoraFinal(sessao.getHoraFinal());
+        dto.setDataHoraInicial(sessao.getDataHoraInicial());
+        dto.setDataHoraFinal(sessao.getDataHoraFinal());
         dto.setTipo(sessao.getTipo());
         dto.setValorSessao(sessao.getValorSessao());
         dto.setSalaIdSala(sessao.getSalaIdSala());
