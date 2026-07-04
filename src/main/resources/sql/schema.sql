@@ -1,6 +1,6 @@
 -- MySQL Workbench Forward Engineering (adaptado)
 --
--- Ajustes aplicados em relação ao export original do Workbench, combinados com o autor do modelo:
+-- Ajustes aplicados em relação ao export original do Workbench (lembrar de alterar nos outros artefatos):
 --   1) `Funcionario`.`Departamento_Nome` passou de NOT NULL para NULLABLE, para quebrar a
 --      dependência circular NOT NULL: Departamento -> Administrativo -> Funcionario -> Departamento
 --      (um funcionário pode existir antes de ser alocado a um departamento).
