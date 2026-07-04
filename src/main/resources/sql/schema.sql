@@ -6,8 +6,10 @@
 --      (um funcionário pode existir antes de ser alocado a um departamento).
 --   2) Toda coluna que representa CPF (`Pessoa.Cpf` e as FKs que a referenciam) passou de INT para
 --      BIGINT, pois CPF tem 11 dígitos e não cabe em INT (limite ~2,1 bilhões).
---   3) Em `Sessao`, as colunas `data` (TIME) e `hora_final` (DATE) estavam com os tipos trocados;
---      corrigido para `data DATE` e `hora_final TIME`.
+--   3) Em `Sessao`, as colunas `data`, `hora_inicial` e `hora_final` foram substituídas por
+--      `data_hora_inicial` e `data_hora_final` (ambas DATETIME). O modelo anterior (data + hora_inicial
+--      + hora_final separados) não representa corretamente sessões que atravessam a meia-noite
+--      (ex.: início às 23:40, fim à 00:20 do dia seguinte), e cálculos de duração ficariam ambíguos.
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -269,9 +271,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Sessao` (
   `Id_Sessao` INT NOT NULL,
-  `data` DATE NOT NULL,
-  `hora_inicial` TIME NOT NULL,
-  `hora_final` TIME NOT NULL,
+  `data_hora_inicial` DATETIME NOT NULL,
+  `data_hora_final` DATETIME NOT NULL,
   `tipo` VARCHAR(3) NOT NULL,
   `valor_sessao` FLOAT NOT NULL,
   `Sala_Id_Sala` INT NOT NULL,
