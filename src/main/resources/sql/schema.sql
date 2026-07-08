@@ -10,6 +10,10 @@
 --      `data_hora_inicial` e `data_hora_final` (ambas DATETIME). O modelo anterior (data + hora_inicial
 --      + hora_final separados) não representa corretamente sessões que atravessam a meia-noite
 --      (ex.: início às 23:40, fim à 00:20 do dia seguinte), e cálculos de duração ficariam ambíguos.
+--   4) `Departamento` ganhou `UNIQUE INDEX (Nome)`. A FK `Funcionario.Departamento_Nome` referencia
+--      apenas `Departamento.Nome`, mas a PK original era composta (`Nome`, `Administrativo_Cpf`), que
+--      não expõe um índice único isolado em `Nome`. MySQL 8+/9+ (ex.: instâncias gerenciadas como
+--      Railway) rejeita a criação dessa FK sem esse índice único ("Missing unique key for constraint").
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -178,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Departamento` (
   `Nome` VARCHAR(15) NOT NULL,
   `Administrativo_Cpf` BIGINT NOT NULL,
   PRIMARY KEY (`Nome`, `Administrativo_Cpf`),
+  UNIQUE INDEX `Nome_UNIQUE` (`Nome` ASC) VISIBLE,
   INDEX `fk_Departamento_Administrativo1_idx` (`Administrativo_Cpf` ASC) VISIBLE,
   CONSTRAINT `fk_Departamento_Administrativo1`
     FOREIGN KEY (`Administrativo_Cpf`)
